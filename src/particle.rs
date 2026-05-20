@@ -49,6 +49,11 @@ impl Particle {
         self.velocity.y += self.gravity * dt;
     }
 
+    pub fn update_vel_to_point(&mut self, center : &Vec2) {
+        let norm = (center - self.position) / self.position.distance(*center);
+        self.velocity +=  norm * 50.0;
+    } 
+
     pub fn collision(&mut self , other : &mut Particle) {
         
         //dist to see if two particles collide

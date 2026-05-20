@@ -39,6 +39,9 @@ impl ggez::event::EventHandler for State {
 
             PhysicalKey::Code(KeyCode::KeyA) => {
                 self.particles.add(Particle::new());
+            },
+            PhysicalKey::Code(KeyCode::KeyC) => {
+                self.particles.move_to_point();
             }
             _ => (),
 

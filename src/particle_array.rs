@@ -1,4 +1,6 @@
-use crate::particle::{Particle};
+use ggez::glam::Vec2;
+
+use crate::particle::{self, Particle};
 
 pub struct ParticleArray {
     pub particles : Vec<Particle>,
@@ -40,6 +42,13 @@ impl ParticleArray {
         }
         
 
+    }
+
+    pub fn move_to_point(&mut self) {
+        let point = Vec2{x: 640.0, y: 360.0 };
+        for particle in &mut self.particles {
+            particle.update_vel_to_point(&point);
+        }
     }
 
 }
