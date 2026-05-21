@@ -4,12 +4,11 @@ pub struct Particle {
     pub position : Vec2,
     pub velocity : Vec2,
     pub radius : f32,
-    gravity : f32
 }
 
 impl Particle {
     pub fn new() -> Particle {
-        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 20.0, gravity: 982.0}
+        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 20.0,}
     }
 
     pub fn step(&mut self, dt : f32) {
@@ -45,8 +44,8 @@ impl Particle {
         }
     }
 
-    pub fn update_vel(&mut self, dt : f32) {
-        self.velocity.y += self.gravity * dt;
+    pub fn update_vel(&mut self, dt : f32, gravity : &f32) {
+        self.velocity.y += gravity * dt;
     }
 
     pub fn update_vel_to_point(&mut self, center : &Vec2) {
