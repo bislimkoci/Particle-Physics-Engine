@@ -54,13 +54,36 @@ impl ggez::event::EventHandler for State {
 
 
 fn mesh_circle_particle(particle : &Particle, _ctx: &mut Context) -> Mesh {
+    let color = color_from_velocity(particle);
+
     let circle = graphics::Mesh::new_circle(
             _ctx,
             graphics::DrawMode::fill(),
             particle.position,
             particle.radius,
             0.1,
-            Color::WHITE,
+            color,
         ).unwrap();
     circle
+}
+
+fn color_from_velocity(particle : &Particle) -> Color{
+    let speed = particle.velocity.length();
+
+    let color_ramp: [(f32, (u8, u8, u8)); 4] = [
+        (100.0, (2, 62, 138)),
+        (300.0, (129, 106, 212)),
+        (600.0, (226, 72, 250)),
+        (1000.0, (165, 15, 21)),
+    ];
+
+    for &(threshold, color) in &color_ramp {
+        if speed < threshold {
+            return Color::from_rgb(color.0, color.1, color.2);
+        }
+    }
+
+    let col = color_ramp.get(3).unwrap().1;
+    Color::from_rgb(col.0, col.1, col.2)
+
 }
