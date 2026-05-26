@@ -1,6 +1,7 @@
 mod state;
 mod particle;
 mod particle_array;
+mod particle_container;
 
 use ggez::{ContextBuilder, conf::{WindowMode, WindowSetup}, event};
 use state::State;
@@ -8,7 +9,7 @@ use state::State;
 fn main() {
     let state = State{
         dt: std::time::Duration::new(0, 0),
-        particles: crate::particle_array::ParticleArray::new(),
+        particles: Box::new(crate::particle_array::ParticleArray::new()),
     };
 
         

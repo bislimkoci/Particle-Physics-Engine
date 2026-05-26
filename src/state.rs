@@ -1,11 +1,10 @@
 use ggez::{ graphics::{Color, Mesh}, winit::{keyboard::{KeyCode, PhysicalKey}}, *};
 
-use crate::particle::{Particle};
-use crate::particle_array::{ParticleArray};
+use crate::{particle::Particle, particle_container::ParticleContainer};
 
 pub struct State {
     pub dt : std::time::Duration,
-    pub particles : ParticleArray,
+    pub particles : Box<dyn ParticleContainer>,
 }
 
 
@@ -24,7 +23,7 @@ impl ggez::event::EventHandler for State {
         
         let mut canvas = graphics::Canvas::from_frame(_ctx, Color::BLACK);
 
-        for particle in &self.particles.particles {
+        for particle in self.particles.particles() {
             let mesh = mesh_circle_particle(particle, _ctx);
             canvas.draw(&mesh, graphics::DrawParam::default());
         }
@@ -39,6 +38,8 @@ impl ggez::event::EventHandler for State {
 
             PhysicalKey::Code(KeyCode::KeyA) => {
                 self.particles.add(Particle::new());
+                let len = self.particles.len();
+                println!("Nbr Particles: {len}");
             },
             PhysicalKey::Code(KeyCode::KeyC) => {
                 self.particles.move_to_point();

@@ -1,23 +1,26 @@
 use ggez::glam::Vec2;
 
 use crate::particle::{Particle};
+use crate::particle_container::{ParticleContainer};
 
 pub struct ParticleArray {
     pub particles : Vec<Particle>,
     pub gravity : f32,
 }
 
-
 impl ParticleArray {
     pub fn new() -> ParticleArray {
-        ParticleArray { particles: Vec::new(), gravity : 982.0}
+        ParticleArray { particles: Vec::new(), gravity : 980.0}
     }
+}
 
-    pub fn add(&mut self, particle : Particle) {
+impl ParticleContainer for ParticleArray {
+
+    fn add(&mut self, particle : Particle) {
         self.particles.push(particle);
     }
 
-    pub fn update_all(&mut self, dt: f32, width: f32, height: f32) {
+    fn update_all(&mut self, dt: f32, width: f32, height: f32) {
         for particle in &mut self.particles {
             particle.update_vel(dt, &self.gravity);
             particle.step(dt);
@@ -45,11 +48,19 @@ impl ParticleArray {
 
     }
 
-    pub fn move_to_point(&mut self) {
+    fn move_to_point(&mut self) {
         let point = Vec2{x: 640.0, y: 360.0 };
         for particle in &mut self.particles {
             particle.update_vel_to_point(&point);
         }
+    }
+
+    fn particles(&self) -> &Vec<Particle> {
+        &self.particles
+    }
+
+    fn len(&self) -> usize {
+        self.particles.len()
     }
 
 }

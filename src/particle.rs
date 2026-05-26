@@ -8,7 +8,7 @@ pub struct Particle {
 
 impl Particle {
     pub fn new() -> Particle {
-        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 20.0,}
+        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 10.0,}
     }
 
     pub fn step(&mut self, dt : f32) {
