@@ -2,7 +2,7 @@ use std::collections::{HashMap};
 
 use ggez::glam::Vec2;
 
-use crate::{HEIGHT, WIDTH, particle::Particle, particle_container::ParticleContainer};
+use crate::{HEIGHT, PARTICLE_RADIUS, WIDTH, particle::Particle, particle_container::ParticleContainer};
 
 pub struct SpatialHash {
     pub cell_size : f32,
@@ -13,7 +13,7 @@ pub struct SpatialHash {
 impl SpatialHash {
     pub fn new() -> Self {
         SpatialHash { 
-            cell_size : 8.0, 
+            cell_size : PARTICLE_RADIUS * 2.0, 
             objects : Vec::new(), 
             grid : HashMap::new(), }
     }

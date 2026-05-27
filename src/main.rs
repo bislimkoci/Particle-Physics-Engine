@@ -9,6 +9,7 @@ use state::State;
 const WIDTH : f32 = 1440.0;
 const HEIGHT : f32 = 720.0;
 const GRAVITY : f32 = 1000.0;
+const PARTICLE_RADIUS : f32 = 10.0;
 
 fn main() {
     let state = State{

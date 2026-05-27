@@ -1,6 +1,6 @@
 use ggez::glam::Vec2;
 
-use crate::{GRAVITY, HEIGHT, WIDTH};
+use crate::{GRAVITY, HEIGHT, PARTICLE_RADIUS, WIDTH};
 
 pub struct Particle {
     pub position : Vec2,
@@ -10,7 +10,7 @@ pub struct Particle {
 
 impl Particle {
     pub fn new() -> Particle {
-        Particle { position: Vec2 { x: WIDTH/2.0, y: HEIGHT/2.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 4.0,}
+        Particle { position: Vec2 { x: WIDTH/2.0, y: HEIGHT/2.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: PARTICLE_RADIUS,}
     }
 
     pub fn step(&mut self, dt : f32) {
