@@ -69,22 +69,34 @@ fn mesh_circle_particle(particle : &Particle, _ctx: &mut Context) -> Mesh {
 }
 
 fn color_from_velocity(particle : &Particle) -> Color{
-    let speed = particle.velocity.length();
+    let min_vel_col = [20.0, 50.0, 200.0];  // Blue
+    let mid_vel_col = [200.0, 50.0, 200.0];  // Purple
+    let max_vel_col = [200.0, 50.0, 20.0];   // Red
 
-    let color_ramp: [(f32, (u8, u8, u8)); 4] = [
-        (100.0, (2, 62, 138)),
-        (300.0, (129, 106, 212)),
-        (600.0, (226, 72, 250)),
-        (1000.0, (165, 15, 21)),
-    ];
+    let max_vel = 1400.0;
+    let speed = particle.velocity.length().min(max_vel);
 
-    for &(threshold, color) in &color_ramp {
-        if speed < threshold {
-            return Color::from_rgb(color.0, color.1, color.2);
-        }
+    let t = speed / max_vel;
+
+    let final_color = if t < 0.5 {
+        //t from [0.0, 0.5] to [0.0, 1.0]
+        let local_t = t * 2.0; 
+        lerp_color(min_vel_col, mid_vel_col, local_t)
+    } else {
+        // t from [0.5, 1.0] to [0.0, 1.0]
+        let local_t = (t - 0.5) * 2.0; 
+        lerp_color(mid_vel_col, max_vel_col, local_t)
+    };
+
+    fn lerp_color(color1: [f32; 3], color2: [f32; 3], t: f32) -> [f32; 3] {
+        [
+            color1[0] + (color2[0] - color1[0]) * t,
+            color1[1] + (color2[1] - color1[1]) * t,
+            color1[2] + (color2[2] - color1[2]) * t,
+        ]
     }
 
-    let col = color_ramp.get(3).unwrap().1;
-    Color::from_rgb(col.0, col.1, col.2)
+        
+    Color::from_rgb(final_color[0] as u8, final_color[1] as u8, final_color[2] as u8)
 
 }
