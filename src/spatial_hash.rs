@@ -5,7 +5,6 @@ use ggez::glam::Vec2;
 use crate::{HEIGHT, WIDTH, particle::Particle, particle_container::ParticleContainer};
 
 pub struct SpatialHash {
-    pub gravity : f32,
     pub cell_size : f32,
     pub objects: Vec<Particle>,
     pub grid : HashMap<(i32, i32), Vec<usize>>,
@@ -14,7 +13,6 @@ pub struct SpatialHash {
 impl SpatialHash {
     pub fn new() -> Self {
         SpatialHash { 
-            gravity : 2.0,
             cell_size : 8.0, 
             objects : Vec::new(), 
             grid : HashMap::new(), }
@@ -60,7 +58,7 @@ impl ParticleContainer for SpatialHash {
 
     fn update_all(&mut self, dt : f32) {
         for particle in &mut self.objects {
-            particle.update_vel(dt, &self.gravity);
+            particle.update_vel(dt);
             particle.step(dt);
             particle.is_out_of_bounds();
         }

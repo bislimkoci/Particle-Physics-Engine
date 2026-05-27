@@ -1,6 +1,6 @@
 use ggez::glam::Vec2;
 
-use crate::{HEIGHT, WIDTH};
+use crate::{GRAVITY, HEIGHT, WIDTH};
 
 pub struct Particle {
     pub position : Vec2,
@@ -49,8 +49,8 @@ impl Particle {
         }
     }
 
-    pub fn update_vel(&mut self, dt : f32, gravity : &f32) {
-        self.velocity.y += gravity * dt;
+    pub fn update_vel(&mut self, dt : f32) {
+        self.velocity.y += GRAVITY * dt;
     }
 
     pub fn update_vel_to_point(&mut self, center : &Vec2) {
