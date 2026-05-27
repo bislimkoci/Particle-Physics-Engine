@@ -1,5 +1,7 @@
 use ggez::glam::Vec2;
 
+use crate::{HEIGHT, WIDTH};
+
 pub struct Particle {
     pub position : Vec2,
     pub velocity : Vec2,
@@ -8,7 +10,7 @@ pub struct Particle {
 
 impl Particle {
     pub fn new() -> Particle {
-        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 4.0,}
+        Particle { position: Vec2 { x: WIDTH/2.0, y: HEIGHT/2.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 4.0,}
     }
 
     pub fn step(&mut self, dt : f32) {
@@ -16,10 +18,13 @@ impl Particle {
         self.position.y += self.velocity.y * dt;
     }
 
-    pub fn is_out_of_bounds(&mut self, width : f32, height : f32) {
+    pub fn is_out_of_bounds(&mut self) {
         let x = self.position.x;
         let y = self.position.y;
         let r = self.radius;
+
+        let width = WIDTH;
+        let height = HEIGHT;
 
         let damp : f32 = 0.9;
 

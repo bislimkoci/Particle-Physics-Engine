@@ -6,6 +6,9 @@ mod spatial_hash;
 use ggez::{ContextBuilder, conf::{WindowMode, WindowSetup}, event};
 use state::State;
 
+const WIDTH : f32 = 1440.0;
+const HEIGHT : f32 = 720.0;
+
 fn main() {
     let state = State{
         dt: std::time::Duration::new(0, 0),
@@ -17,9 +20,10 @@ fn main() {
     let (ctx, event_loop) = ContextBuilder::new("hello_ggez", "awesome_person")
         .window_mode(
             WindowMode::default()
-                .dimensions(1440.0, 720.0)   
-                .resizable(true)
-                .max_dimensions(1280.0, 720.0)
+                .dimensions(WIDTH, HEIGHT)   
+                .resizable(false)
+                .max_dimensions(WIDTH, HEIGHT)
+                .min_dimensions(WIDTH, HEIGHT)
         )
         .window_setup(
             WindowSetup::default().title("2D Particle simulation!!!")

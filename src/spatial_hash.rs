@@ -2,7 +2,7 @@ use std::collections::{HashMap};
 
 use ggez::glam::Vec2;
 
-use crate::{particle::{Particle}, particle_container::ParticleContainer};
+use crate::{HEIGHT, WIDTH, particle::Particle, particle_container::ParticleContainer};
 
 pub struct SpatialHash {
     pub gravity : f32,
@@ -52,17 +52,17 @@ impl ParticleContainer for SpatialHash {
     }
 
     fn move_to_point(&mut self) {
-        let center = Vec2::new(640.0, 360.0);
+        let center = Vec2::new(WIDTH/2.0, HEIGHT/2.0);
         for particle in &mut self.objects {
             particle.update_vel_to_point(&center);
         }
     }
 
-    fn update_all(&mut self, dt: f32, width: f32, height: f32) {
+    fn update_all(&mut self, dt : f32) {
         for particle in &mut self.objects {
             particle.update_vel(dt, &self.gravity);
             particle.step(dt);
-            particle.is_out_of_bounds(width, height);
+            particle.is_out_of_bounds();
         }
 
         self.rebuild_grid();

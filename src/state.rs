@@ -14,7 +14,7 @@ impl ggez::event::EventHandler for State {
         
         let dt_seconds = self.dt.as_secs_f32();
 
-        self.particles.update_all(dt_seconds, _ctx.fields.conf.window_mode.width, _ctx.fields.conf.window_mode.height);
+        self.particles.update_all(dt_seconds);
         
         Ok(())
     }
