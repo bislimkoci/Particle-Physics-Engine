@@ -8,7 +8,7 @@ pub struct Particle {
 
 impl Particle {
     pub fn new() -> Particle {
-        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 10.0,}
+        Particle { position: Vec2 { x: 640.0, y: 360.0 }, velocity: Vec2 { x: 360.0, y: -840.0 }, radius: 4.0,}
     }
 
     pub fn step(&mut self, dt : f32) {
@@ -21,7 +21,7 @@ impl Particle {
         let y = self.position.y;
         let r = self.radius;
 
-        let damp : f32 = 0.7;
+        let damp : f32 = 0.9;
 
         if x - r <= 0.0 && self.velocity.x < 0.0 {
             self.position.x = r;
