@@ -63,9 +63,9 @@ impl ParticleContainer for SpatialHash {
             particle.is_out_of_bounds();
         }
 
-        self.rebuild_grid();
-
+        
         for _ in 0..3 {
+            self.rebuild_grid();
             for i in 0..self.objects.len() {
                 let p1_pos = self.objects[i].position;
                 let center_coord = self.get_grid_coords(p1_pos);
