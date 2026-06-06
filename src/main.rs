@@ -8,7 +8,7 @@ use state::State;
 
 const WIDTH : f32 = 1440.0;
 const HEIGHT : f32 = 720.0;
-const GRAVITY : f32 = 1.0;
+const GRAVITY : f32 = 1000.0;
 const PARTICLE_RADIUS : f32 = 8.0;
 
 fn main() {
