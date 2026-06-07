@@ -2299,6 +2299,7 @@ name = "rust_particle"
 version = "0.1.0"
 dependencies = [
  "ggez",
+ "rayon",
 ]
 
 [[package]]
